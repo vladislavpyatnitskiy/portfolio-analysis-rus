@@ -1,0 +1,48 @@
+library("rvest") # Library
+
+rus.ratios <- function(x, y){ # Fundamentals
+  
+  x <- colnames(x[,1+3*seq(ncol(x)%/%3,from=0)])[-(ncol(x)%/%3+1)][-15]
+  
+  l <- NULL # Store data here
+  
+  for (j in 1:length(x)){ k <- NULL
+  
+    for (m in 1:length(y)){ v <- y[m] # Fundamental
+    
+    s <- read_html(sprintf("https://smart-lab.ru/q/%s/?field=%s",
+                           "shares_fundamental", v))
+    
+    s.yahoo <- s %>% html_nodes('table') %>% .[[1]] -> tab
+    
+    i <- tab %>% html_nodes('tr') %>% html_nodes('td') %>% html_text()
+    
+    D <- NULL
+    
+    for (n in 0:(length(i)/6)){ D <- rbind(D, cbind(i[(3+n*6)], i[(6+n*6)])) }
+    
+    D <- cbind(x[j], D[D[,1] == x[j], 2]) 
+    
+    D[,2] <- gsub('["\n"]', '', gsub('["\t"]', '', D[,2])) # Clean
+    
+    if (isTRUE(grepl(" ", D[,2]))){ D[,2] <- gsub(" ", "", D[,2]) }  
+    
+    colnames(D) <- c("Ticker", gsub("_", "/", toupper(y[m]))) # Column names
+    
+    if (is.null(k)){ k <- D } else { k <- merge(x=k,y=D,by="Ticker",all=T) } }
+    
+    if (is.null(l)){ l <- k } else { l <- rbind(l, k) } }   # Join
+    
+  if (isTRUE(l[1,1] == "")){ l <- l[-1,] } # Reduce empty row
+  
+  l <- as.data.frame(l[,-1]) # Reduce excessive column with tickers
+  
+  if (ncol(l) == 1){ colnames(l) <- gsub("_", "/", toupper(y)) } 
+  
+  rownames(l) <- x # Assign tickers
+  
+  for (n in 1:ncol(l)){ l[,n] <- as.numeric(l[,n]) } # Make data numeric
+  
+  return(l) # Display
+}
+rus.ratios(rus.portfolio.df, c("market_cap", "p_e", "p_s")) # Test
