@@ -4,5 +4,8 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 
 Добро пожаловать в репозиторий! Это дополнение к репозиторию [Portfolio_Analysis](https://github.com/vladislavpyatnitskiy/Portfolio_Analysis), которое сосредоточено на получении данных о ценах и дивидендах российских акций, деятельность которых была остановлена с 2022 года. Поскольку форматы фреймов данных аналогичны формату Portfolio_Analysis, все возможности исходного репозитория действительны для фреймов данных, состоящих из российских акции.
 
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Fundamentals.png?raw=true)
+#### Fig. 1. Fundamentals of Portfolio Securities
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot.png?raw=true)
-#### Fig. 1. Stacked Bar Plot of Portfolio Securitites
+#### Fig. 2. Stacked Bar Plot of Portfolio Securitites
