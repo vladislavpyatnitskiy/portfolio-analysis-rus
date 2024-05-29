@@ -10,5 +10,11 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot.png?raw=true)
 #### Fig. 2. Pie Plot of Portfolio Securities
 --------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20of%20Securities%20Sectors.png?raw=true)
+#### Fig. 3. Pie Plot of Portfolio Securities by Sectors
+--------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20of%20Portfolio%20by%20Industries.png?raw=true)
+#### Fig. 4. Pie Plot of Portfolio Securities by Industries
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot.png?raw=true)
-#### Fig. 3. Stacked Bar Plot of Portfolio Securitites
+#### Fig. 5. Stacked Bar Plot of Portfolio Securitites
