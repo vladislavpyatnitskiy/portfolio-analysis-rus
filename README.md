@@ -24,16 +24,19 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20by%20Market%20Cap.png?raw=true)
 #### Fig. 7. Pie Plot of Portfolio Securities by Market Cap Levels
-##### Market Cap Levels: 
-##### Micro-Cap <= 1 billion Roubles; 
+--------------------------------------------------------------------
+Market Cap Levels: 
 
-##### Small-Cap from 1 to 10 billion Roubles;
+• Micro-Cap <= 1 billion Roubles; 
 
-##### Mid-Cap from 10 to 100 billion Roubles; 
+• Small-Cap from 1 to 10 billion Roubles;
 
-##### Large-Cap from 100 to 1,000 billion (1 trillion) Roubles; 
+• Mid-Cap from 10 to 100 billion Roubles; 
 
-##### Mega-Cap => 1 trillion Roubles
+• Large-Cap from 100 to 1,000 billion (1 trillion) Roubles; 
+
+• Mega-Cap => 1 trillion Roubles
+
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot.png?raw=true)
 #### Fig. 8. Stacked Bar Plot of Portfolio Securitites
@@ -46,3 +49,6 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Correlation%20Bar%20Plot%20of%20Russian%20Portfolio.png?raw=true)
 #### Fig. 11. Bar Plot of Median Correlation Values
+--------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Boxplot.png?raw=true)
+#### Fig. 12. Box Plot of Portfolio Securities
