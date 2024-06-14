@@ -52,3 +52,6 @@ Market Cap Levels:
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Boxplot.png?raw=true)
 #### Fig. 12. Box Plot of Portfolio Securities
+--------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Histogram%20of%20Correlations.png?raw=true)
+#### Fig. 13. Histogram of Portfolio Returns
