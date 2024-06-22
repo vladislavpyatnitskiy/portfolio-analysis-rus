@@ -4,12 +4,12 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   l <- NULL # Store data here
   
-  for (m in 1:length(y)){ v <- y[m] # For each ratio get Smartlab HTML
+  for (m in 1:length(y)){ v <- y[m] # For each ratio get Smart-lab.ru HTML
   
     s<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
                          v))
     
-    tab <- s %>% html_nodes('table') %>% .[[1]]
+    tab <- s %>% html_nodes('table') %>% .[[1]] #Subtract table with market cap
     
     d <- tab %>% html_nodes('tr') %>% html_nodes('td') %>% html_text()
     
@@ -18,11 +18,11 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
     for (n in 0:(length(d)/6)){ D <- rbind(D, cbind(d[(3 + n * 6)],
                                                     d[(6 + n * 6)])) }
     D <- D[-nrow(D),] # Reduce last row
-    D[,2] <- gsub('["\n"]', '', gsub('["\t"]', '', D[,2]))
+    D[,2] <- gsub('["\n"]', '', gsub('["\t"]', '', D[,2])) # Clean messy data
     
-    for (n in 1:length(D)){ if (isTRUE(grepl(" ", D[n]))){
+    for (n in 1:length(D)){ if (isTRUE(grepl(" ", D[n]))){ # Where gaps exist
       
-      D[n] <- gsub(" ", "", D[n]) } } # Reduce gap in market cap
+      D[n] <- gsub(" ", "", D[n]) } } # Reduce gaps in market cap values
     
     colnames(D) <- c("Ticker", gsub("_", "/", toupper(y[m]))) # Column names
     
@@ -47,20 +47,20 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   colnames(L) <- "Market Cap" # Column Name
   rownames(L) <- x # Tickers
   
-  q <- read_html("https://uk.investing.com/equities/qiwi-plc?cid=960754")
+  q <- read_html("https://www.kommersant.ru/quotes/us74735m1080") # HTML
   
-  tab <- q %>% html_nodes('dl') %>% .[[2]]
+  tab <- q %>% html_nodes('article') %>% html_nodes('section') %>% 
+    html_nodes("div") %>% html_nodes("p") %>% html_text()
   
-  B <- tab %>% html_nodes('div') %>% html_nodes('dd') %>% html_text()
+  B <- tab[8] # Subtract market value number from HTML
   
-  B <- B[1] # Scrape value, reduce "B" and change to numeric type
+  B<-gsub("млрд₽","",gsub(",",".",gsub("\n","",gsub("\r","",gsub(" ","",B)))))
   
-  B <- as.numeric(read.fwf(textConnection(B),widths=c(nchar(B)-1,1),
-                           colClasses = "character"))[1]
-  B <- as.data.frame(B)
+  B <- as.data.frame(as.numeric(B)) # Make it numeric and put in data frame
+  
   colnames(B) <- "Market Cap" # Column Name
   rownames(B) <- "QIWI" # ticker
   
   rbind.data.frame(L, B) # Join
 }
-rus.marketcap(x = rus.portfolio.df, y=c("market_cap")) # Test
+rus.marketcap(x = rus.portfolio.df, y = c("market_cap")) # Test
