@@ -2,40 +2,21 @@ rus.stock.fun <- function(x){ # How to glue stocks into one data frame from csv
   
   f <- list.files(path = x, pattern = "*.csv", full.names = T) # File Path
   
-  df <- NULL
+  df <- NULL # For each file extract name
   
-  for (m in 1:length(f)){ # For each file extract name
-  
-    R <- as.character(read.fwf(textConnection(f[m]), widths = c(43, 47),
-                               colClasses = "character")[2])
+  for (m in 1:length(f)){ R<-as.character(read.fwf(textConnection(f[m]),
+                                                   widths = c(43, 47),
+                                                   colClasses="character")[2])
     
-    R <- read.fwf(textConnection(R), widths=c(4, 8),
-                  colClasses = "character")[1]
+    R <- read.fwf(textConnection(R), widths=c(4, 8), colClasses="character")[1]
     
     D <- read.csv(f[m], header = T, stringsAsFactors = F) # Read CSV
     
-    D <- D[,1:2] # Take only columns of Data and Adjusted close
+    D <- D[,1:2] # Subtract Dates and Adjusted Close Data and reform them
     
-    for (n in 1:nrow(D)){ # Reform data format
+    D[,1] <- format(strptime(D[,1], format = "%d/%m/%Y"), "%Y-%m-%d") # Dates
       
-      Y <- as.character(read.fwf(textConnection(D[n,1]),
-                                 widths=c(nchar(D[n,1]) - 4,
-                                          nchar(D[n,1]) - 0),
-                                 colClasses = "character")[2]) # Year
-      
-      M <- as.character(read.fwf(textConnection(D[n,1]),
-                                 widths=c(nchar(D[n,1]) - 7,
-                                          nchar(D[n,1]) - 8),
-                                 colClasses = "character")[2]) # Month
-      
-      d <- as.character(read.fwf(textConnection(D[n,1]),
-                                 widths=c(nchar(D[n,1]) - 8,
-                                          nchar(D[n,1]) - 10),
-                                 colClasses = "character")[1]) # Day
-      
-      if (isTRUE(grepl(",", D[n,2]))){ D[n,2] <- gsub(",", "", D[n,2]) }
-      
-      D[n,1] <- paste(Y, M, d, sep = "-") } # Concatenate dates
+    D[,2] <- gsub(",", "", D[,2]) # Reduce "," in stock prices
     
     D[order(D$Date, decreasing = T),] # Order from the first to last date
     
@@ -53,4 +34,4 @@ rus.stock.fun <- function(x){ # How to glue stocks into one data frame from csv
   
   df # Display
 }
-rus.df <- rus.stock.fun("~/Desktop/My Russian Portfolio/") # Test
+rus.stock.fun("~/Desktop/My Russian Portfolio/") # Test
