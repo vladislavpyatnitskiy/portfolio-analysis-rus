@@ -5,12 +5,31 @@ portfolio_builder1 <- function(x){ # Suit data frame of positions for portfolio
   L <- NULL # Make list with total value of positions
   
   for (n in 1:length(s)){ l <- x[x$Ticker == s[n],] # Subtract ticker
-    
-    if (isTRUE(nrow(l) > 1)){ for (m in 2:nrow(l)){ 
-      
-        l[m, 4] <- l[m, 4] + l[(m - 1), 4] } } # Add numbers
   
-    L <- c(L, list(s[n], l[,2], l[,3], l[,4])) } # Join values
+    k <- NULL # list with changes of position numbers
+  
+    if (nrow(l) > 1){ for (m in 1:nrow(l)){ if (isTRUE(m == 1)){
+      
+          k <- data.frame(Date = seq.Date(from = as.Date(l[m,2]),
+                                          to = as.Date(l[m,3]), by = "day"),
+                          Number = l[m,4])
+          
+          colnames(k)[m + 1] <- sprintf("%s", m) } else { # call first column
+        
+          k <- merge(k, data.frame(Date = seq.Date(from = as.Date(l[m,2]),
+                                                   to = as.Date(l[m,3]),
+                                                   by="day"), Number = l[m,4]),
+                     by = "Date", all = T)
+          
+          colnames(k)[m + 1] <- sprintf("%s", m) } } # Call columns of numbers
+    
+      k[is.na(k)] <- 0 # Substitute NA with Zero values
+    
+      k$Total <- rowSums(k[,seq(ncol(k), from = 2)]) # Sum all numbers
+      
+      K<-rle(k[,ncol(k)])[2][1][[1]] } else { K<-l[,4] } # numbers of positions
+    
+    L <- c(L, list(s[n], l[,2], l[,3], K)) } # Join all values
   
   # Put into nested list according to tickers, start and end dates, numbers
   D <- list(L[seq(length(L) - 1, from = 0, by = 4) + 1],
