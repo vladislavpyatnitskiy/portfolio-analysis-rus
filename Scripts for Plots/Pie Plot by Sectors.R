@@ -2,8 +2,6 @@ library("rvest") # Library
 
 rus.pie.plt.sector <- function(x){ # Generate Pie Plot of Portfolio by Sectors
   
-  colnames(x) <- paste(colnames(x), "ME", sep = ".") # Add .ME for Yahoo!
-  
   tickers <- colnames(x[,1+3*seq(ncol(x)%/%3,from=0)])[-(ncol(x)%/%3+1)]
   
   pct <- as.data.frame(x[,3 * seq(ncol(x) %/% 3, from = 1)]) / x[,ncol(x)]
@@ -23,27 +21,29 @@ rus.pie.plt.sector <- function(x){ # Generate Pie Plot of Portfolio by Sectors
   
   l <- NULL # Create list
   
-  for (n in 1:length(rownames(pct))){ s <- rownames(pct)[n]
+  for (m in 1:length(tickers)){ s <- tolower(tickers[m])
   
-    if (s == "OZON.ME"){ l <- rbind(l, "Consumer Cyclical") } # For OZON
+    f <- read_html(sprintf("https://www.morningstar.com/stocks/misx/%s/quote",
+                           s)) %>% html_nodes('section') %>%
+      html_nodes('dd') %>% html_nodes('span') 
     
-    else if (s == "MDMG.ME"){ l <- rbind(l, "Healthcare") } else {  # MDMG
-      
-      p<-read_html(sprintf("https://uk.finance.yahoo.com/quote/%s/profile",s))
-      
-      Y <- p %>% html_nodes('div') %>% .[[1]] -> tab
-      
-      h <- tab %>% html_nodes('p') %>% html_nodes('span') %>% html_text()
-      
-      l <- rbind(l, h[grep("Sector", h) + 1]) } } # Add to list
+    L <- NULL 
     
+    for (n in 1:length(f)){ if (isTRUE(f[n] %>% html_attr('class') ==
+                                       "mdc-locked-text__mdc mdc-string")){
+      
+        L <- c(L, f[n] %>% html_text()) } } # Final version
+    
+    l <- rbind(l, L[1]) } # Join
+  
   colnames(l) <- "Sector" # Assign column name
   rownames(l) <- tickers # Assign tickers
   
   pie.df <- data.frame(l, pct) # Form data frame
+  
   pie.df <- aggregate(Portion ~ Sector, data=pie.df, sum) # Conditional sum
   
-  pie(pie.df[,2], labels=c(sprintf("%s %s%%", pie.df[,1], pie.df[,2])), col=C,
-      main="Portfolio by Sectors", radius=1.5) # Pie Chart
+  pie(pie.df[,2], labels = c(sprintf("%s %s%%", pie.df[,1], pie.df[,2])), col=C,
+      main = "Portfolio by Sectors", radius = 1) # Pie Chart
 }
 rus.pie.plt.sector(rus.portfolio.df) # Test
