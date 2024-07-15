@@ -50,14 +50,17 @@ Market Cap Levels:
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot%20by%20Sector%20(Roubles).png?raw=true)
 #### Fig. 11. Stacked Bar Plot of Portfolio by Sectors
 --------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot%20of%20Dividends.png?raw=true)
+#### Fig. 12. Stacked Bar Plot of Portfolio Dividends
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Heatmap%20of%20Portfolio%20Securities.png?raw=true)
-#### Fig. 12. Correlation Heatmap
+#### Fig. 13. Correlation Heatmap
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Correlation%20Bar%20Plot%20of%20Russian%20Portfolio.png?raw=true)
-#### Fig. 13. Bar Plot of Median Correlation Values
+#### Fig. 14. Bar Plot of Median Correlation Values
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Boxplot.png?raw=true)
-#### Fig. 14. Box Plot of Portfolio Securities
+#### Fig. 15. Box Plot of Portfolio Securities
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Histogram%20of%20Correlations.png?raw=true)
-#### Fig. 15. Histogram of Portfolio Returns
+#### Fig. 16. Histogram of Portfolio Returns
