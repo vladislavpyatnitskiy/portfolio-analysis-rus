@@ -68,9 +68,9 @@ rus.bar.plt.stack.sector <- function(x, portion = F, c = "$US"){
   
   for (n in 1:length(colnames(D))){ #s <- as.data.frame(D[,n])
   
-    pie.df <- data.frame(y, as.data.frame(D[,n])) # Join data
+    B <- data.frame(y, as.data.frame(D[,n])) # Join data
     
-    colnames(pie.df)[2] <- "Prices" # Assign column names
+    colnames(B)[2] <- "Prices" # Assign column names
     
     B <- aggregate(Prices ~ Sector, data = B, sum) # Conditional sum
     
