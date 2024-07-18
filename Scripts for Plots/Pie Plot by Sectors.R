@@ -1,49 +1,82 @@
 library("rvest") # Library
 
-rus.pie.plt.sector <- function(x){ # Generate Pie Plot of Portfolio by Sectors
+rus.pie.plt.sector <- function(x){ # Pie Plot of sectors for Portfolio
   
-  tickers <- colnames(x[,1+3*seq(ncol(x)%/%3,from=0)])[-(ncol(x)%/%3+1)]
+  l <- NULL # Data Frame with Ticker and Number columns
   
-  pct <- as.data.frame(x[,3 * seq(ncol(x) %/% 3, from = 1)]) / x[,ncol(x)]
+  for (n in 1:length(x[[1]])){ # Ticker & Number of stocks info
+    
+    l <- rbind.data.frame(l, cbind(x[[1]][[n]],
+                                   x[[4]][[n]][length(x[[4]][[n]])])) }
   
-  colnames(pct) <- tickers # Assign tickers
+  colnames(l) <- c("Ticker", "Number") # Column names
   
-  pct <- t(round(pct[nrow(pct),] * 100)) # Transform last period into percents
+  p <- read_html("https://smart-lab.ru/q/shares/") # Get info from website
   
-  C = c("#466791","#60bf37","#953ada","#4fbe6c","#ce49d3","#a7b43d","#5a51dc",
-        "#d49f36","#552095","#507f2d","#db37aa","#84b67c","#a06fda","#df462a",
-        "#5b83db","#c76c2d","#4f49a3","#82702d","#dd6bbb","#334c22","#d83979",
-        "#55baad","#dc4555","#62aad3","#8c3025","#417d61","#862977","#bba672",
-        "#403367","#da8a6d","#a79cd4","#71482c","#c689d0","#6b2940","#d593a7",
-        "#895c8b","#bd5975") # Add colour range
+  tab <- p %>% html_nodes('table') %>% .[[1]] # Extract table
   
-  colnames(pct) <- "Portion" # Assign column name
+  f <- tab %>% html_nodes('tr') # Subtract nodes with tickers
   
-  l <- NULL # Create list
+  L <- NULL # Reorganise data into data frame with ticker, price and return
   
-  for (m in 1:length(tickers)){ s <- tolower(tickers[m])
+  for (n in 2:length(f)){ j <- f[n] %>% html_nodes('td') %>% html_text()
   
-    f <- read_html(sprintf("https://www.morningstar.com/stocks/misx/%s/quote",
-                           s)) %>% html_nodes('section') %>%
+    P <- gsub('["\n"]', '', gsub('["\t"]', '', j[8])) # Clean Data
+    
+    P <- as.character(read.fwf(textConnection(P), widths = c(nchar(P) - 1, 1),
+                               colClasses = "character")[1])
+    
+    if (isTRUE(grepl("\\+", P))){ P <- as.numeric(gsub("\\+", "", P)) }
+    
+    L <- rbind.data.frame(L, cbind(j[3], j[7], P)) } # ticker, price & %
+  
+  colnames(L) <- c("Ticker", "Price", "Return") # Column names
+  
+  S <- merge(L, l, by = "Ticker") # Join price, return & number data by ticker
+  
+  for (n in 2:4){ S[,n] <- as.numeric(S[,n]) } # Change data format to numeric
+  
+  S$PnL <- as.numeric(format(S[,2] * (1-1/(1+S[,3]/100)),scientific=F)) * S[,4]
+  
+  S$Portion <- round((S$Price * S$Number / sum(S$Price * S$Number)) * 100, 2)
+  
+  S$Value <- S$Price * S$Number # Calculate P&L, Portions & Total Value
+  
+  b <- sum(S[seq(nrow(S)),6] / ((100 + S[seq(nrow(S)),3]) / 100)) # Last total
+  
+  S <- S[,-(2:4)] # Reduce excess columns
+  
+  rownames(S) <- seq(nrow(S)) # Sort row names in an ascending way
+  
+  D <- NULL #
+  
+  for (n in 1:nrow(S)){ # Get sector info from Morningstar website
+    
+    k <- read_html(sprintf("https://www.morningstar.com/stocks/misx/%s/quote",
+                           S[n,1])) %>% html_nodes('section') %>%
       html_nodes('dd') %>% html_nodes('span') 
     
-    L <- NULL 
+    d <- NULL # Clean info
     
-    for (n in 1:length(f)){ if (isTRUE(f[n] %>% html_attr('class') ==
+    for (m in 1:length(k)){ if (isTRUE(k[m] %>% html_attr('class') ==
                                        "mdc-locked-text__mdc mdc-string")){
       
-        L <- c(L, f[n] %>% html_text()) } } # Final version
+      d <- c(d, k[m] %>% html_text()) } } # Final version
     
-    l <- rbind(l, L[1]) } # Join
+    D <- rbind.data.frame(D, cbind(S[n,1], d[1])) } # Join
   
-  colnames(l) <- "Sector" # Assign column name
-  rownames(l) <- tickers # Assign tickers
+  colnames(D) <- c("Ticker", "Sector") # Column Names
   
-  pie.df <- data.frame(l, pct) # Form data frame
+  S <- merge(S, D, by = "Ticker") # Merge by tickers
   
-  pie.df <- aggregate(Portion ~ Sector, data=pie.df, sum) # Conditional sum
+  C = c("#466791","#60bf37","#953ada","#4fbe6c","#ce49d3","#a7b43d","#5a51dc",
+        "#d49f36","#552095","#507f2d","#db37aa") # Add colour range
+  
+  S <- S[,-c(1,2,4)] # Reduce excess columns
+  
+  pie.df <- aggregate(Portion ~ Sector, data = S, sum) # Conditional sum
   
   pie(pie.df[,2], labels = c(sprintf("%s %s%%", pie.df[,1], pie.df[,2])), col=C,
       main = "Portfolio by Sectors", radius = 1) # Pie Chart
 }
-rus.pie.plt.sector(rus.portfolio.df) # Test
+rus.pie.plt.sector(pos.df.new) # Test
