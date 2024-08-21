@@ -35,16 +35,15 @@ rus.bar.plt.cor <- function(x){ # Bar Plot with Median Correlation Values
   
   l <- l[order(l$Median), ] # Sort in an ascending way
   
-  # Add colour range
   colors37 = c("#466791","#60bf37","#953ada","#4fbe6c","#ce49d3","#a7b43d",
                "#5a51dc","#d49f36","#552095","#507f2d","#db37aa","#84b67c",
                "#a06fda","#df462a","#5b83db","#c76c2d","#4f49a3","#82702d",
                "#dd6bbb","#334c22","#d83979","#55baad","#dc4555","#62aad3",
                "#8c3025","#417d61","#862977","#bba672","#403367","#da8a6d",
                "#a79cd4","#71482c","#c689d0","#6b2940","#d593a7","#895c8b",
-               "#bd5975")
+               "#bd5975") # Add colour range
   
-  # Create barplot
+  # Create bar plot
   bar.plt.script <- barplot(l[,1],
                             names.arg = rownames(l),
                             horiz = F,
@@ -76,44 +75,20 @@ rus.bar.plt.cor <- function(x){ # Bar Plot with Median Correlation Values
   
   m <- NULL # Write advices about securities according to correlations
   
-  if (isFALSE(identical(names(which(h > 0.5)), character(0)))){
-    
-    m <- c(m, paste("Sell these Assets:", toString(names(which(h > .5))))) }
+  j <- list(list(.5, 1, "Sell these Assets:"),
+            list(.45, .5, "Sell one of these Assets:"), 
+            list(.4, .45, "Consider to sell one of these Assets:"),
+            list(.35, .4, "Check these Assets:"),
+            list(.3, .35, "OK to keep Assets:"), list(.25, .3, "Good Assets:"),
+            list(.2, .25, "Great Assets:"), list(-1, .2, "Best Assets:")) 
   
-  if (isFALSE(identical(names(which(h > .45 & h < .5)), character(0)))){
+  for (n in 1:length(j)){ # Messages indicating correlation levels for stocks
     
-    m <- c(m, paste("Sell one of these Assets:",
-                    toString(names(which(h > .45 & h < .5))))) }
-  
-  if (isFALSE(identical(names(which(h > .4 & h < .45)), character(0)))){
-    
-    m <- c(m, paste("Consider to sell one of these Assets:",
-                    toString(names(which(h > .4 & h < .45))))) }
-  
-  if (isFALSE(identical(names(which(h > .35 & h < .4)), character(0)))){
-    
-    m <- c(m, paste("Check these Assets:",
-                    toString(names(which(h > .35 & h < .4))))) }
-  
-  if (isFALSE(identical(names(which(h > .3 & h < .35)), character(0)))){
-    
-    m <- c(m, paste("OK to keep Assets:",
-                    toString(names(which(h > .3 & h < .35))))) }
-  
-  if (isFALSE(identical(names(which(h > .25 & h < .3)), character(0)))){
-    
-    m <- c(m, paste("Good Assets:",
-                    toString(names(which(h > .25 & h < .3))))) }
-  
-  if (isFALSE(identical(names(which(h > .2 & h < .25)), character(0)))){
-    
-    m <- c(m, paste("Great Assets:",
-                    toString(names(which(h > .2 & h < .25))))) }
-  
-  if (isFALSE(identical(names(which(h < .2)), character(0)))){
-    
-    m <- c(m, paste("Best Assets:", toString(names(which(h < .2))))) }
-  
+    if (isFALSE(identical(names(which(h > j[[n]][[1]] & h < j[[n]][[2]])),
+                          character(0)))){
+      m <- c(m,
+             paste(j[[n]][[3]],
+                   toString(names(which(h>j[[n]][[1]] & h<j[[n]][[2]]))))) } }
   m # Display
 }
 rus.bar.plt.cor(rus.df1) # Test
