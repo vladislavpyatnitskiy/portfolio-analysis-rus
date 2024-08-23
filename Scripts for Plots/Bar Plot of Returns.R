@@ -11,11 +11,11 @@ rus.bar.plt <- function(x){ # Bar Plot of Stocks Returns
   v <- NULL #
   
   for (n in 1:ncol(x)){ s <- x[,n] #
-    
-    j <- diff(log(s[apply(s, 1, function(row) all(row !=0 )),]))[-1,]
-    
-    v <- c(v,  (exp(sum(j)) - 1) * 100) } # Join  
-    
+  
+  j <- diff(log(s[apply(s, 1, function(row) all(row !=0 )),]))[-1,]
+  
+  v <- c(v,  (exp(sum(j)) - 1) * 100) } # Join  
+  
   names(v) <- c # Give column names
   
   v <- sort(v, decreasing = T) # Make data numeric and sort values
@@ -41,11 +41,11 @@ rus.bar.plt <- function(x){ # Bar Plot of Stocks Returns
   
   m <- round(min(l) * -1 + max(l),0)/10^(nchar(round(min(l) * -1+ max(l),0)))
   
-  if (m > 0 && m < 1){ mc <- 1 * 10 ^ (nchar(m) - 3) }
+  i <- c(0, 1, 2, 5) # Calculate intervals for lines and axes
   
-  else if (m > 1 && m < 2){ mc <- 2 * 10 ^ (nchar(m) - 3) }
-  
-  else if (m > 2 && m < 5){ mc <- 5 * 10 ^ (nchar(m) - 3) }
+  for (n in 1:length(i) - 1){ if (m > i[n] && m < i[n + 1]){
+    
+      mc <- i[n + 1] * 10 ^ (nchar(m) - 3) } else { next } }
   
   for (n in seq(from=-100,by=mc/5,to=10000)){ abline(v=n, col="grey", lty=3) } 
   
