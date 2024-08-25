@@ -26,6 +26,8 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 | PIKK | 565.3 | 8.95 | 1.63 | 0.96 | NA | 5.12 | 1.07 |
 #### Table. 1. Fundamentals of Portfolio Securities from smart-lab.ru
 --------------------------------------------------------------------
+## Data Visualisation Capabilities
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Monthly%20Portfolio%20Returns.png?raw=true)
 #### Fig. 1. Bar Plot of Monthly Portfolio Returns
 --------------------------------------------------------------------
@@ -89,3 +91,27 @@ Market Cap Levels:
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Histogram%20of%20Correlations.png?raw=true)
 #### Fig. 17. Histogram of Portfolio Returns
+--------------------------------------------------------------------
+
+## Data Analysis Capabilities
+
+```
+[[1]]
+  Тикер Доходность (%)  Купить до День Закрытия Реестра Выплата До       Цена
+1  PHOR            2.3 19.09.2024            22.09.2024 04.10.2024 5119.00000
+2  GCHE            3.3 26.09.2024            29.09.2024 11.10.2024 4301.00000
+3  MAGN            5.7 16.10.2024            17.10.2024 31.10.2024   43.67500
+
+[[2]]
+  Тикер   Название Стоимость дивидендов Число Акций Общая Стоимость После Налога
+1  PHOR ФосАгро ао       117.0000000000           1          117.00     101.7900
+2  GCHE ЧеркизГ-ао       142.1100000000           2          284.22     247.2714
+3  MAGN        ММК         2.4940000000         180          448.92     390.5604
+
+[[3]]
+[1] "Общая Стоимость Дивидендов До Налога: 850.14 рублей"
+
+[[4]]
+[1] "Общая Стоимость Дивидендов После Налога: 739.6218 рублей"
+```
+#### Table. 2. Info about Future Dividend Payments
