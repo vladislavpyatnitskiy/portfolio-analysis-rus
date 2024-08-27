@@ -86,6 +86,15 @@ Market Cap Levels:
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Correlation%20Bar%20Plot%20of%20Russian%20Portfolio.png?raw=true)
 #### Fig. 15. Bar Plot of Median Correlation Values
 --------------------------------------------------------------------
+```
+[1] "Consider to sell one of these Assets: MGNT, RASP, NVTK"
+[2] "Check these Assets: OZON, FESH, MDMG, LKOH"            
+[3] "OK to keep Assets: PIKK, TTLK, ABRD, UPRO, GCHE"       
+[4] "Good Assets: BRZL, AKRN, MAGN, QIWI, PHOR"             
+[5] "Great Assets: DIOD, BELU"        
+```
+#### Table. 2. Securities by Median Correlation Values
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Boxplot.png?raw=true)
 #### Fig. 16. Box Plot of Portfolio Securities
 --------------------------------------------------------------------
@@ -126,7 +135,7 @@ Market Cap Levels:
 [1] "Portfolio Value: 169296.1 Roubles" "Total PnL: -3723.59 Roubles"      
 [3] "Return: -2.15 %"                   "IMOEX: -2.32 %"                  
 ```
-#### Table. 2. Portfolio Tracking Info
+#### Table. 3. Portfolio Tracking Info
 --------------------------------------------------------------------
 ```
 [[1]]
@@ -147,4 +156,4 @@ Market Cap Levels:
 [[4]]
 [1] "Общая Стоимость Дивидендов После Налога: 739.6218 рублей"
 ```
-#### Table. 3. Info about Future Dividend Payments
+#### Table. 4. Info about Future Dividend Payments
