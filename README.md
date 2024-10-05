@@ -54,18 +54,14 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20by%20Market%20Cap.png?raw=true)
 #### Fig. 9. Pie Plot of Portfolio Securities by Market Cap Levels
---------------------------------------------------------------------
-Market Cap Levels: 
 
-• Micro-Cap <= 1 billion Roubles; 
-
-• Small-Cap from 1 to 10 billion Roubles;
-
-• Mid-Cap from 10 to 100 billion Roubles; 
-
-• Large-Cap from 100 to 1,000 billion (1 trillion) Roubles; 
-
-• Mega-Cap => 1 trillion Roubles
+| Market Level | Amount |
+|---|---|
+| Micro-Cap | <= 1 billion Roubles |
+| Small-Cap | from 1 to 10 billion Roubles |
+| Mid-Cap | from 10 to 100 billion Roubles | 
+| Large-Cap | from 100 to 1,000 billion (1 trillion) Roubles |
+| Mega-Cap | => 1 trillion Roubles |
 
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot.png?raw=true)
@@ -85,7 +81,6 @@ Market Cap Levels:
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Correlation%20Bar%20Plot%20of%20Russian%20Portfolio.png?raw=true)
 #### Fig. 15. Bar Plot of Median Correlation Values
---------------------------------------------------------------------
 ```
 [1] "Consider to sell one of these Assets: MGNT, RASP, NVTK"
 [2] "Check these Assets: OZON, FESH, MDMG, LKOH"            
