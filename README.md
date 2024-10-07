@@ -94,7 +94,10 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 #### Fig. 16. Box Plot of Portfolio Securities
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Histogram%20of%20Correlations.png?raw=true)
-#### Fig. 17. Histogram of Portfolio Returns
+#### Fig. 17. Histogram of Portfolio Correlation Values
+--------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Portfolio%20Histogram.png?raw=true)
+#### Fig. 18. Histogram of Portfolio Returns
 --------------------------------------------------------------------
 
 ## Data Analysis Capabilities
