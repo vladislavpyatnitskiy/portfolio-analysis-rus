@@ -3,7 +3,6 @@ library(rvest) # Library
 rus.future.divs <- function(x){ # Fututre Dividends of Portfolio Securities
   
   s <- x[[1]] # Get tickers from the nested list with portfolio info
-  
   q <- x[[4]] # Get number of stocks for each company in portfolio
   
   f <- read_html("https://smart-lab.ru/dividends/") %>% html_nodes('table') %>%
@@ -32,21 +31,19 @@ rus.future.divs <- function(x){ # Fututre Dividends of Portfolio Securities
   colnames(D) <- c("Тикер","Название","Стоимость дивидендов","Доходность (%)",
                    "Купить до", "День Закрытия Реестра", "Выплата До", "Цена")
   
-  d <- c(s, D[,1]) # Tickers that are both in portfolio and dividends history
-  
-  a <- d[which(duplicated(d))] # Show only duplicates
+  a <- intersect(s, D[,1]) # Tickers coexist in portfolio and dividends history
   
   A <- NULL # Subtract Dividends of Portfolio Stocks from History
   Q <- NULL # Get number of each stock up to date
   
   for (n in 1:length(a)){ h <- a[n][[1]] # Ticker
-    
+  
     A <- rbind.data.frame(A, D[D$Тикер == h,]) # row with info for each stock
   
     m <- q[which(s == h)][[1]][length(q[which(s == h)][[1]])] # Stock Number
-  
+    
     Q <- rbind.data.frame(Q, m) } # Data frame with numbers for each stock
-  
+    
   rownames(A) <- seq(nrow(A)) # Change row names
   
   M <- data.frame(A[,1:3], Q) # Data Frame with Total Dividends
