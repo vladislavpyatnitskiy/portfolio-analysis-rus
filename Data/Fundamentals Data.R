@@ -6,17 +6,14 @@ rus.ratios <- function(x, y){ # Fundamentals nfo from Smartlab for portfolio
   
   for (m in 1:length(y)){ v <- y[m] # For each ratio get Smartlab HTML
   
-    s<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
-                         v))
-    
-    tab <- s %>% html_nodes('table') %>% .[[1]]
-    
-    d <- tab %>% html_nodes('tr') %>% html_nodes('td') %>% html_text()
-    
+    d<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
+                         v)) %>% html_nodes('table') %>% .[[1]] %>%
+      html_nodes('tr') %>% html_nodes('td') %>% html_text()
+  
     D <- NULL # Variable for Table with Name, Ticker and values
     
-    for (n in 0:(length(d)/6)){ D <- rbind(D, cbind(d[(3 + n * 6)],
-                                                    d[(6 + n * 6)])) }
+    for (n in 0:(length(d)/6)){ D <- rbind(D, cbind(d[(3+n*6)], d[(6+n*6)])) }
+    
     D <- D[-nrow(D),] # Reduce last row
     D[,2] <- gsub('["\n"]', '', gsub('["\t"]', '', D[,2]))
     
