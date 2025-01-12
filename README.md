@@ -192,3 +192,27 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 32 2024-06-07   MAGN   2.75200    180 495.36   445.824        12664.521
 ```
 #### Table. 5. Dividend Cash Flow History of the Russian Stocks' Portfolio
+--------------------------------------------------------------------
+```
+Call:
+lm(formula = r, data = d)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.241178 -0.006582  0.000760  0.007857  0.176118 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  0.0007495  0.0009252   0.810  0.41828   
+Cocoa        0.1409243  0.0508018   2.774  0.00575 **
+Cotton       0.0611305  0.0392163   1.559  0.11968   
+Gold         0.1705198  0.1092781   1.560  0.11930   
+Rice        -0.0933555  0.0643799  -1.450  0.14767   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.02048 on 496 degrees of freedom
+Multiple R-squared:  0.02873,	Adjusted R-squared:  0.0209 
+F-statistic: 3.668 on 4 and 496 DF,  p-value: 0.005891
+```
+#### Table. 6. Regression of Commodity Factors
