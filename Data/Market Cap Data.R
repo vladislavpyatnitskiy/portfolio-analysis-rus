@@ -6,12 +6,9 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   for (m in 1:length(y)){ v <- y[m] # For each ratio get Smart-lab.ru HTML
   
-    s<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
-                         v))
-    
-    tab <- s %>% html_nodes('table') %>% .[[1]] #Subtract table with market cap
-    
-    d <- tab %>% html_nodes('tr') %>% html_nodes('td') %>% html_text()
+    d<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
+                         v)) %>% html_nodes('table') %>% .[[1]] %>%
+      html_nodes('tr') %>% html_nodes('td') %>% html_text()
     
     D <- NULL # Variable for Table with Name, Ticker and values
     
@@ -22,7 +19,7 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
     
     for (n in 1:length(D)){ if (isTRUE(grepl(" ", D[n]))){ # Where gaps exist
       
-      D[n] <- gsub(" ", "", D[n]) } } # Reduce gaps in market cap values
+        D[n] <- gsub(" ", "", D[n]) } } # Reduce gaps in market cap values
     
     colnames(D) <- c("Ticker", gsub("_", "/", toupper(y[m]))) # Column names
     
@@ -38,7 +35,18 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   x <- colnames(x[,1 + 3 * seq(ncol(x) %/% 3, from = 0)])[-(ncol(x) %/% 3 + 1)]
   
-  if (isTRUE(any(x == "QIWI"))){ x <- x[x != "QIWI"] } # Unavailable ticker
+  if (isTRUE(any(x == "QIWI"))){ x <- x[x != "QIWI"] # If there is QIWI ticker
+  
+    Q <- read_html("https://www.kommersant.ru/quotes/us74735m1080") %>%
+      html_nodes('article') %>% html_nodes('section') %>% html_nodes("div") %>%
+      html_nodes("p") %>% html_text() %>% .[8] # Market Cap Value for QIWI
+    
+    Q<-gsub("млрд₽","",gsub(",",".",gsub("\n","",gsub("\r","",gsub(" ","",Q)))))
+    
+    Q <- as.data.frame(as.numeric(Q)) # Make it numeric and put in data frame
+    
+    colnames(Q) <- "Market Cap" # Column Name
+    rownames(Q) <- "QIWI" } # ticker
   
   L <- NULL # Collect fundamental data for portfolio securities
   
@@ -47,20 +55,6 @@ rus.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   colnames(L) <- "Market Cap" # Column Name
   rownames(L) <- x # Tickers
   
-  q <- read_html("https://www.kommersant.ru/quotes/us74735m1080") # HTML
-  
-  tab <- q %>% html_nodes('article') %>% html_nodes('section') %>% 
-    html_nodes("div") %>% html_nodes("p") %>% html_text()
-  
-  B <- tab[8] # Subtract market value number from HTML
-  
-  B<-gsub("млрд₽","",gsub(",",".",gsub("\n","",gsub("\r","",gsub(" ","",B)))))
-  
-  B <- as.data.frame(as.numeric(B)) # Make it numeric and put in data frame
-  
-  colnames(B) <- "Market Cap" # Column Name
-  rownames(B) <- "QIWI" # ticker
-  
-  rbind.data.frame(L, B) # Join
+  if (!is.null(Q)){ rbind.data.frame(L, Q) } else { L } # Display
 }
 rus.marketcap(x = rus.portfolio.df, y = c("market_cap")) # Test
