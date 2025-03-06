@@ -3,20 +3,17 @@ library("rvest") # Library
 rus.pie.plt.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   # Calculate Weights for each security
-  Y <- round(as.data.frame(t(as.data.frame(x[,3*seq(ncol(x)%/%3,
-                                                    from=1)][nrow(x),]/
-                                             as.numeric(x[nrow(x),
-                                                          ncol(x)])))),2)*100
+  Y <- x[,3*seq(ncol(x)%/%3,from=1)][nrow(x),]/as.numeric(x[nrow(x),ncol(x)])
+  
+  Y <- round(as.data.frame(t(as.data.frame(Y))) ,2) * 100
+  
   l <- NULL # Store data here
   
   for (m in 1:length(y)){ v <- y[m] # For each ratio get Smartlab HTML
-  
-    s<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
-                         v))
     
-    tab <- s %>% html_nodes('table') %>% .[[1]]
-    
-    d <- tab %>% html_nodes('tr') %>% html_nodes('td') %>% html_text()
+    d<-read_html(sprintf("https://smart-lab.ru/q/shares_fundamental/?field=%s",
+                         v)) %>% html_nodes('table') %>% .[[1]] %>%
+      html_nodes('tr') %>% html_nodes('td') %>% html_text()
     
     D <- NULL # Variable for Table with Name, Ticker and values
     
@@ -27,11 +24,11 @@ rus.pie.plt.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
     
     for (n in 1:length(D)){ if (isTRUE(grepl(" ", D[n]))){
       
-      D[n] <- gsub(" ", "", D[n]) } } # Reduce gap in market cap
+        D[n] <- gsub(" ", "", D[n]) } } # Reduce gap in market cap
     
     colnames(D) <- c("Ticker", gsub("_", "/", toupper(y[m]))) # Column names
     
-    if (is.null(l)){ l<-D } else { l<-merge(x=l,y=D,by="Ticker",all=T)} }# Join
+    if (is.null(l)){ l <- D } else { l <- merge(x=l,y=D,by="Ticker",all=T) } }
     
   if (isTRUE(l[1,1] == "")){ l <- l[-1,] } # Reduce empty row
   
@@ -43,7 +40,17 @@ rus.pie.plt.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   x <- colnames(x[,1 + 3 * seq(ncol(x) %/% 3, from = 0)])[-(ncol(x) %/% 3 + 1)]
   
-  if (isTRUE(any(x == "QIWI"))){ x <- x[x != "QIWI"] } # Unavailable ticker
+  if (isTRUE(any(x == "QIWI"))){ x <- x[x != "QIWI"]
+  
+    Q <- read_html("https://www.kommersant.ru/quotes/us74735m1080") %>%
+      html_nodes('article') %>% html_nodes('section') %>% html_nodes("div") %>%
+      html_nodes("p") %>% html_text() %>% .[8] # Market Cap Value for QIWI
+    
+    B=gsub("млрд₽","",gsub(",",".",gsub("\n","",gsub("\r","",gsub(" ","",Q)))))
+    
+    B <- as.data.frame(B)
+    colnames(B) <- "Market Cap" # Column Name
+    rownames(B) <- "QIWI" } # ticker
   
   L <- NULL # Collect fundamental data for portfolio securities
   
@@ -52,36 +59,24 @@ rus.pie.plt.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   colnames(L) <- "Market Cap" # Column Name
   rownames(L) <- x # Tickers
   
-  q <- read_html("https://uk.investing.com/equities/qiwi-plc?cid=960754")
-  
-  tab <- q %>% html_nodes('dl') %>% .[[2]]
-  
-  B <- tab %>% html_nodes('div') %>% html_nodes('dd') %>% html_text()
-  
-  B <- B[1] # Scrape value, reduce "B" and change to numeric type
-  
-  B <- as.numeric(read.fwf(textConnection(B),widths=c(nchar(B)-1,1),
-                           colClasses = "character"))[1]
-  B <- as.data.frame(B)
-  colnames(B) <- "Market Cap" # Column Name
-  rownames(B) <- "QIWI" # ticker
-  
-  L <- rbind.data.frame(L, B) # Join
+  if (!is.null(B)){ L <- rbind.data.frame(L, B) } # Add if QIWI is in portfolio
   
   M <- NULL # Assign values for Market Cap Values
   
+  for (n in 1:ncol(L)){ L[,n] <- as.numeric(L[,n]) } # Make values numeric
+  
   for (n in 1:nrow(L)){ m <- L[n,1] # Micro, Small, Mid, Large and Mega Caps
-    
+  
     if (m < 1){ M <- rbind.data.frame(M, "Micro-Cap") } # 1
     
-    else if (m > 1 && m < 10) { M <- rbind.data.frame(M, "Small-Cap") } # 2
+    else if (m > 1 & m < 10) { M <- rbind.data.frame(M, "Small-Cap") } # 2
     
-    else if (m > 10 && m < 100) { M <- rbind.data.frame(M, "Mid-Cap") } # 3
+    else if (m > 10 & m < 100) { M <- rbind.data.frame(M, "Mid-Cap") } # 3
     
-    else if (m > 100 && m < 1000) { M <- rbind.data.frame(M, "Large-Cap") } # 4
+    else if (m > 100 & m < 1000) { M <- rbind.data.frame(M, "Large-Cap") } # 4
     
-    else { M <- rbind.data.frame(M, "Mega-Cap") } } # 5
-  
+    else if (m > 1000) { M <- rbind.data.frame(M, "Mega-Cap") } } # 5
+    
   rownames(M) <- rownames(L)
   colnames(M) <- "Level" # Column Name
   
@@ -93,7 +88,7 @@ rus.pie.plt.marketcap <- function(x, y){ # Portfolio Securities by Market Cap
   
   C = c("#466791","#60bf37","#953ada","#4fbe6c","#ce49d3","#a7b43d","#5a51dc")
   
-  pie(df[,2], labels=c(sprintf("%s %s%%", df[,1], df[,2])), col=C, radius=2.5,
+  pie(df[,2], labels=c(sprintf("%s %s%%", df[,1], df[,2])), col=C, radius=1.5,
       main = "Portfolio Securities by Market Capitalisation") # Plot
 }
 rus.pie.plt.marketcap(x = rus.portfolio.df, y=c("market_cap")) # Test
