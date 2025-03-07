@@ -5,34 +5,29 @@ rus.pie.plt.live <- function(x){ # Data Frame with current stocks info
   l <- NULL # Data Frame with Ticker and Number columns
   
   for (n in 1:length(x[[1]])){ # Ticker & Number of stocks info
-      
+    
     l<-rbind.data.frame(l,cbind(x[[1]][[n]],
                                 x[[4]][[n]][length(x[[4]][[n]])]))}
-    
-    colnames(l) <- c("Ticker", "Number") # Column names
-    
-    p <- read_html("https://smart-lab.ru/q/shares/") # Get info from website
-    
-    tab <- p %>% html_nodes('table') %>% .[[1]] # Extract table
-    
-    f <- tab %>% html_nodes('tr') # Subtract nodes with tickers
-    
-    L <- NULL # Reorganise data into data frame with ticker, price and return
-    
-    for (n in 2:length(f)){ j <- f[n] %>% html_nodes('td') %>% html_text()
-    
-      P <- gsub('["\n"]', '', gsub('["\t"]', '', j[8])) # Clean Data
-      
-      P <- as.character(read.fwf(textConnection(P), widths = c(nchar(P) - 1, 1),
-                                 colClasses = "character")[1])
-      
-      if (isTRUE(grepl("\\+", P))){ P <- as.numeric(gsub("\\+", "", P)) }
-      
-      L <- rbind.data.frame(L, cbind(j[3], j[7], P)) } # ticker, price & %
   
-  H <- f[3] %>% html_nodes('td') %>% html_text() # Subtract row
+  colnames(l) <- c("Ticker", "Number") # Column names
   
-  H <- H[10] # Subtract cell with time value
+  f <- read_html("https://smart-lab.ru/q/shares/") %>% html_nodes('table') %>%
+    .[[1]] %>% html_nodes('tr') # Subtract nodes with tickers
+  
+  L <- NULL # Reorganise data into data frame with ticker, price and return
+  
+  for (n in 2:length(f)){ j <- f[n] %>% html_nodes('td') %>% html_text()
+  
+    P <- gsub('["\n"]', '', gsub('["\t"]', '', j[8])) # Clean Data
+    
+    P <- as.character(read.fwf(textConnection(P), widths = c(nchar(P) - 1, 1),
+                               colClasses = "character")[1])
+    
+    if (isTRUE(grepl("\\+", P))){ P <- as.numeric(gsub("\\+", "", P)) }
+    
+    L <- rbind.data.frame(L, cbind(j[3], j[7], P)) } # ticker, price & %
+    
+  H <- f[3] %>% html_nodes('td') %>% html_text() %>% .[10]
   
   colnames(L) <- c("Ticker", "Price", "Return") # Column names
   
