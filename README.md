@@ -40,20 +40,23 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Dividends%20Accumulation.png?raw=true)
 #### Fig. 4. Plot of Portfolio Dividends Accumulation
 --------------------------------------------------------------------
+![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Scatter%20Plot.png?raw=true)
+#### Fig. 5. Scatter Plot for Risk and Return of Portfolio Securities
+--------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot.png?raw=true)
-#### Fig. 5. Pie Plot of Portfolio Securities
+#### Fig. 6. Pie Plot of Portfolio Securities
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Dividend%20Pie.png?raw=true)
-#### Fig. 6. Portfolio Dividend Pie
+#### Fig. 7. Portfolio Dividend Pie
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20of%20Securities%20Sectors.png?raw=true)
-#### Fig. 7. Pie Plot of Portfolio Securities by Sectors
+#### Fig. 8. Pie Plot of Portfolio Securities by Sectors
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20of%20Portfolio%20by%20Industries.png?raw=true)
-#### Fig. 8. Pie Plot of Portfolio Securities by Industries
+#### Fig. 9. Pie Plot of Portfolio Securities by Industries
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Pie%20Plot%20by%20Market%20Cap.png?raw=true)
-#### Fig. 9. Pie Plot of Portfolio Securities by Market Cap Levels
+#### Fig. 10. Pie Plot of Portfolio Securities by Market Cap Levels
 
 | Market Level | Amount |
 |---|---|
@@ -65,22 +68,22 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot.png?raw=true)
-#### Fig. 10. Stacked Bar Plot of Portfolio Securitites
+#### Fig. 11. Stacked Bar Plot of Portfolio Securitites
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot%20by%20Sector%20(Roubles).png?raw=true)
-#### Fig. 11. Stacked Bar Plot of Portfolio by Sectors
+#### Fig. 12. Stacked Bar Plot of Portfolio by Sectors
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot%20of%20Dividends.png?raw=true)
-#### Fig. 12. Stacked Bar Plot of Portfolio Dividends
+#### Fig. 13. Stacked Bar Plot of Portfolio Dividends
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Stacked%20Bar%20Plot%20Sector%20Dividends.png?raw=true)
-#### Fig. 13. Stacked Bar Plot of Portfolio Dividends by Sector
+#### Fig. 14. Stacked Bar Plot of Portfolio Dividends by Sector
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Heatmap%20of%20Portfolio%20Securities.png?raw=true)
-#### Fig. 14. Correlation Heatmap
+#### Fig. 15. Correlation Heatmap
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Correlation%20Bar%20Plot%20of%20Russian%20Portfolio.png?raw=true)
-#### Fig. 15. Bar Plot of Median Correlation Values
+#### Fig. 16. Bar Plot of Median Correlation Values
 ```
 [1] "Consider to sell one of these Assets: MGNT, RASP, NVTK"
 [2] "Check these Assets: OZON, FESH, MDMG, LKOH"            
@@ -91,13 +94,13 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 #### Table. 2. Securities by Median Correlation Values
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Boxplot.png?raw=true)
-#### Fig. 16. Box Plot of Portfolio Securities
+#### Fig. 17. Box Plot of Portfolio Securities
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Histogram%20of%20Correlations.png?raw=true)
-#### Fig. 17. Histogram of Portfolio Correlation Values
+#### Fig. 18. Histogram of Portfolio Correlation Values
 --------------------------------------------------------------------
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Portfolio%20Histogram.png?raw=true)
-#### Fig. 18. Histogram of Portfolio Returns
+#### Fig. 19. Histogram of Portfolio Returns
 --------------------------------------------------------------------
 
 ## Data Analysis Capabilities
