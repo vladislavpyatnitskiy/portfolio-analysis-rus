@@ -1,6 +1,23 @@
+lapply(c("moexer", "timeSeries", "xts"), require, character.only = T) # Libs 
+
 rus.heatmap.plt <- function(x, size = .9, main = NULL){
   
-  m.correlation = as.matrix(diff(log(as.timeSeries(x)))[-1,]) # raturns' matrix 
+  p <- NULL # Create an empty variable and get stock price data
+  
+  for (a in colnames(x[,1+3*seq(ncol(x) %/% 3,from=0)])[-(ncol(x)%/%3+1)]){ 
+    
+    D <- as.data.frame(get_candles(a, "2007-01-01", till = as.Date(Sys.Date()),
+                                   interval = 'daily')[,c(3,8)])
+  
+    D <- D[!duplicated(D),] # Remove duplicates
+    
+    p <- cbind(p, xts(D[, 1], order.by = as.Date(D[, 2]))) }
+  
+  p <- p[apply(p, 1, function(x) all(!is.na(x))),] # Eliminate NAs
+  
+  colnames(p) <- colnames(x[,1+3*seq(ncol(x) %/% 3,from=0)])[-(ncol(x)%/%3+1)]
+  
+  m.correlation = as.matrix(diff(log(as.timeSeries(p)))[-1,]) # returns matrix 
   
   c.correlation = ncol(m.correlation) # Get number of columns
   
@@ -33,5 +50,5 @@ rus.heatmap.plt <- function(x, size = .9, main = NULL){
          round(X_for_corr[coord_for_corr[i,1],coord_for_corr[i,2]],digits = 2),
          col = "white", cex = size) }
 }
-rus.heatmap.plt(x = rus.df1, size =.9,
+rus.heatmap.plt(rus.portfolio.df, size =.9,
                 main = "Portfolio Correlations Heatmap") # Test
