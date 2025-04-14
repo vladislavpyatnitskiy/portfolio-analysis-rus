@@ -104,7 +104,53 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 --------------------------------------------------------------------
 
 ## Data Analysis Capabilities
-
+```
+   Ticker Start Date   End Date Number
+1    YDEX 2022-01-31 2024-02-05      1
+2    NVTK 2022-02-07 2025-09-04      3
+3    PHOR 2022-02-07 2025-09-04      1
+4    LKOH 2022-02-07 2025-09-04      1
+5    PIKK 2022-02-10 2025-09-04      6
+6    MAGN 2022-02-18 2025-09-04     80
+7    QIWI 2022-02-18 2025-09-04      9
+8    MGNT 2022-02-18 2025-09-04      1
+9    AKRN 2022-06-17 2025-09-04      1
+10   OZON 2022-06-30 2025-09-04      7
+11   GCHE 2022-06-30 2025-09-04      2
+12   ABRD 2022-06-30 2025-09-04     30
+13   BELU 2022-06-30 2024-08-15      2
+14   DIOD 2022-07-05 2025-09-04    800
+15   MDMG 2022-07-11 2025-09-04     12
+16   UPRO 2022-07-11 2025-09-04   3000
+17   TTLK 2022-07-25 2025-09-04  10000
+18   BRZL 2022-07-26 2025-09-04      5
+19   RASP 2022-07-27 2025-09-04     10
+20   FESH 2022-08-01 2025-09-04    100
+21   UPRO 2022-10-04 2025-09-04   1000
+22   QIWI 2022-10-05 2025-09-04      7
+23   RASP 2022-10-05 2025-09-04     10
+24   YDEX 2022-12-14 2024-02-05      1
+25   MAGN 2023-05-19 2025-09-04     80
+26   MGNT 2023-05-19 2025-09-04      1
+27   LKOH 2023-05-19 2025-09-04      1
+28   NVTK 2023-06-20 2025-09-04      2
+29   PIKK 2024-02-05 2025-09-04      4
+30   NVTK 2024-02-05 2025-09-04      2
+31   NVTK 2024-02-05 2025-09-04      3
+32   MAGN 2024-04-10 2025-09-04     10
+33   MAGN 2024-04-11 2025-09-04     10
+34   BISV 2024-05-28 2025-09-04    100
+35   BISV 2024-06-24 2025-09-04    100
+36   BISV 2024-07-12 2025-09-04    100
+37   BISV 2024-07-29 2025-09-04    200
+38   BELU 2024-08-23 2025-09-04     14
+39   BISV 2024-09-12 2025-09-04    100
+40   BISV 2024-10-14 2025-09-04    100
+41   BISV 2024-11-01 2025-09-04    100
+42   MAGN 2024-12-27 2025-09-04     30
+```
+#### Table. 3. Portfolio Positions
+--------------------------------------------------------------------
 ```
 [[1]]
 [1] "Time: 23:44:58"
@@ -136,7 +182,7 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 [1] "Portfolio Value: 169296.1 Roubles" "Total PnL: -3723.59 Roubles"      
 [3] "Return: -2.15 %"                   "IMOEX: -2.32 %"                  
 ```
-#### Table. 3. Portfolio Tracking Info
+#### Table. 4. Portfolio Tracking Info
 --------------------------------------------------------------------
 ```
 [[1]]
@@ -157,7 +203,7 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 [[4]]
 [1] "Общая Стоимость Дивидендов После Налога: 739.6218 рублей"
 ```
-#### Table. 4. Info about Future Dividend Payments
+#### Table. 5. Info about Future Dividend Payments
 --------------------------------------------------------------------
 ```
          Date Ticker  Dividend Number  Total After Tax Cumulative Total
@@ -194,7 +240,7 @@ Welcome to the repository! It is an addition to [Portfolio_Analysis](https://git
 31 2024-05-24   TTLK   0.04887  10000 488.70   439.830        12218.697
 32 2024-06-07   MAGN   2.75200    180 495.36   445.824        12664.521
 ```
-#### Table. 5. Dividend Cash Flow History of the Russian Stocks' Portfolio
+#### Table. 6. Dividend Cash Flow History of the Russian Stocks' Portfolio
 --------------------------------------------------------------------
 ```
 Call:
@@ -218,4 +264,4 @@ Residual standard error: 0.02048 on 496 degrees of freedom
 Multiple R-squared:  0.02873,	Adjusted R-squared:  0.0209 
 F-statistic: 3.668 on 4 and 496 DF,  p-value: 0.005891
 ```
-#### Table. 6. Regression of Commodity Factors
+#### Table. 7. Regression of Commodity Factors
