@@ -6,8 +6,12 @@ rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio
   
   colnames(v) <- colnames(x) # Give column names & generate plot
   
-  boxplot.matrix(v, main = "Fluctuations of Portfolio Securities", title = F,
-                 col = "steelblue", las = 2, ylab = "Returns") 
+  B <- boxplot.matrix(
+    v,
+    main = "Fluctuations of Portfolio Securities",
+    col = "steelblue",
+    las = 2
+    ) 
   
   grid(nx = 1, ny = NULL, col = "grey", lwd = 1) # Horizontal lines
   
@@ -15,7 +19,7 @@ rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio
   
   axis(side = 4, las = 1) # Return values on the right side of the plot
   
-  par(mar = c(5, 4, 4, 4)) # Define borders of the plot to fit right y-axis
+  par(mar = rep(4, 4)) # Define borders of the plot to fit right y-axis
   
   abline(v = seq(ncol(v)), col = "grey", lty = 3) # Add vertical lines
 }
