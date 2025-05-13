@@ -1,8 +1,12 @@
 rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio  
   
-  v <- NULL # Clean data & calculate logs
+  x <- x[,1 + 3 * seq(ncol(x) %/% 3, from = 0)][,-(ncol(x) %/% 3 + 1)] # Data
   
-  for (n in 1:ncol(x)){ v <- cbind(v, diff(log(x[,n]))[-1]) }
+  v <- NULL # Variable for values
+  
+  for (n in 1:ncol(x)){ s <- x[,n] # Clean data and calculate logs
+  
+    v <- cbind(v, diff(log(s[apply(s,1,function(row) all(row !=0 )),]))[-1,]) } 
   
   colnames(v) <- colnames(x) # Give column names & generate plot
   
@@ -23,4 +27,4 @@ rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio
   
   abline(v = seq(ncol(v)), col = "grey", lty = 3) # Add vertical lines
 }
-rus.box.plt(rus.df1) # Test
+rus.box.plt(rus.portfolio.df) # Test
