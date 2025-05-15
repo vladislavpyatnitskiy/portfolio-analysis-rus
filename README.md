@@ -1,5 +1,8 @@
 # Stock Data Analysis of Russian Portfolio
 
+[![R](https://img.shields.io/badge/R-4.x-blue.svg)](https://www.r-project.org/)
+![GitHub last commit](https://img.shields.io/github/last-commit/vladislavpyatnitskiy/portfolio-analysis-rus.svg)
+
 Welcome to the repository! It is an addition to [Portfolio_Analysis](https://github.com/vladislavpyatnitskiy/Portfolio_Analysis) repository which concentrated on tracking of portfolio consisting of Russian Stocks. As Data Frame Formats are similar ones to original one, all capabilties from original repository are valid to data frames made of Russian stocks.
 
 Добро пожаловать в репозиторий! Это дополнение к репозиторию [Portfolio_Analysis](https://github.com/vladislavpyatnitskiy/Portfolio_Analysis), которое сосредоточено на самостоятельном отслеживании портфеля, состоящего из российских акций. Поскольку форматы фреймов данных аналогичны формату Portfolio_Analysis, все возможности исходного репозитория действительны для фреймов данных, состоящих из российских акции.
