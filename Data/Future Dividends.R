@@ -15,35 +15,43 @@ rus.future.divs <- function(x){ # Fututre Dividends of Portfolio Securities
     
       L <- c(L, f[n] %>% html_nodes('td') %>% html_text()) } }
   
-  D <- data.frame(L[seq(from = 2, to = length(L), by = 11)],
-                  L[seq(from = 1, to = length(L), by = 11)],
-                  format(as.numeric(gsub(",",".",L[seq(from=4, to=length(L),
-                                                       by=11)])),scientific=F),
-                  as.numeric(gsub(",", ".",
-                                  strsplit(L[seq(from=5, to=length(L), by=11)],
-                                           split="%"))),
-                  L[seq(from = 7, to = length(L), by = 11)],
-                  L[seq(from = 8, to = length(L), by = 11)],
-                  L[seq(from = 9, to = length(L), by = 11)],
-                  format(as.numeric(gsub(",",".",L[seq(from=10, to=length(L),
-                                                       by=11)])),scientific=F))
+  D <- data.frame(
+    L[seq(from = 2, to = length(L), by = 11)],
+    L[seq(from = 1, to = length(L), by = 11)],
+    format(
+      as.numeric(
+        gsub(",", ".", L[seq(from = 4, to=length(L), by=11)])), scientific=F
+      ),
+    as.numeric(
+      gsub(",", ".", strsplit(L[seq(from=5, to=length(L), by=11)], split="%"))
+      ),
+    L[seq(from = 7, to = length(L), by = 11)],
+    L[seq(from = 8, to = length(L), by = 11)],
+    L[seq(from = 9, to = length(L), by = 11)],
+    format(
+      as.numeric(
+        gsub(",", ".", L[seq(from=10, to=length(L), by=11)])), scientific=F
+      )
+    )
   
-  colnames(D) <- c("Тикер","Название","Стоимость дивидендов","Доходность (%)",
-                   "Купить до", "День Закрытия Реестра", "Выплата До", "Цена")
+  colnames(D) <- c(
+    "Тикер", "Название", "Стоимость дивидендов", "Доходность (%)", "Купить до",
+    "День Закрытия Реестра", "Выплата До", "Цена"
+    )
   
   a <- intersect(s, D[,1]) # Tickers coexist in portfolio and dividends history
   
   A <- NULL # Subtract Dividends of Portfolio Stocks from History
+  
+  for (n in 1:length(a)){ A <- rbind.data.frame(A, D[D$Тикер == a[n][[1]],]) }
+  
   Q <- NULL # Get number of each stock up to date
   
-  for (n in 1:length(a)){ h <- a[n][[1]] # Ticker
-  
-    A <- rbind.data.frame(A, D[D$Тикер == h,]) # row with info for each stock
-  
-    m <- q[which(s == h)][[1]][length(q[which(s == h)][[1]])] # Stock Number
+  for (n in 1:length(A[,1])){ h <- A[,1][n] # Stock Number
     
-    Q <- rbind.data.frame(Q, m) } # Data frame with numbers for each stock
-    
+    Q <- rbind.data.frame(
+      Q, q[which(s == h)][[1]][length(q[which(s == h)][[1]])]) } 
+  
   rownames(A) <- seq(nrow(A)) # Change row names
   
   M <- data.frame(A[,1:3], Q) # Data Frame with Total Dividends
@@ -54,8 +62,11 @@ rus.future.divs <- function(x){ # Fututre Dividends of Portfolio Securities
   
   colnames(M)[3:4] <- c("Стоимость дивидендов", "Число Акций") # Fix Columns
   
-  list(A[,-c(2,3)], M, # Message with Total Sum of Dividends before & after tax
-       sprintf("Общая Стоимость Дивидендов До Налога: %s рублей", sum(M[,5])),
-       sprintf("Общая Стоимость Дивидендов После Налога: %s рублей",sum(M[,6]))) 
+  list(
+    A[,-c(2,3)], # Ticker, Earning Yield, Dates of payments and price
+    M, # Ticker, Name, Dividend, Stock Number, Total Sum, Sum after Tax 
+    sprintf("Общая Стоимость Дивидендов До Налога: %s рублей", sum(M[,5])),
+    sprintf("Общая Стоимость Дивидендов После Налога: %s рублей", sum(M[,6]))
+    ) # Last two: Total sum of all Dividends and Total sum after Tax
 }
 rus.future.divs(pos.df.new) # Test
