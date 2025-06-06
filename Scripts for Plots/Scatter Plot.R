@@ -12,16 +12,28 @@ rus.scatter.plt <- function(x){ # Scatter plot of portfolio's securities
   d <- NULL # Empty variable to contain values
   
   for (n in 1:ncol(R)){ s <- R[,n] # For each security in data frame
-    
+  
     # Clean data to reduce NA and calculate return for ownership period  
     j <- diff(log(s[apply(s, 1, function(row) all(row !=0 )),]))[-1,]
     
-    d <- rbind.data.frame(d, cbind(sd(j)*1000, (exp(sum(j))-1)*100)) } # Join
+    d <- rbind.data.frame(d, cbind(sd(j) * 1000, (exp(sum(j)) - 1) * 100)) }
+    
+  colnames(d) <- c("Standard Deviation", "Return")
   
-  ggplot(d, mapping = aes(x = d[,1], y = d[,2])) + geom_point() +
-    geom_text_repel(aes(label = colnames(R))) + theme_minimal() +
+  ggplot(
+    d,
+    mapping = aes(
+      x = d[,"Standard Deviation"],
+      y = d[,"Return"])
+    ) +
+    geom_point() +
+    geom_text_repel(aes(label = colnames(R))) +
+    theme_minimal() +
     theme(plot.title = element_text(hjust = .5)) +
-    labs(title = "Performance of Portfolio Securities",
-         x = "Risk (Standard Deviation)", y = "Return (%)") # Plot
+    labs(
+      title = "Performance of Portfolio Securities",
+      x = "Risk (Standard Deviation)",
+      y = "Return (%)"
+      ) # Plot
 }
 rus.scatter.plt(rus.portfolio.df) # Test
