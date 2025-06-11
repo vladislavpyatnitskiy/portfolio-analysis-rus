@@ -1,4 +1,4 @@
-rus.tickers <- function(x, del, add, info = F){ # Rearrange tickers
+rus.tickers <- function(x, del, add){ # Rearrange tickers
   
   # Extract tickers from portfolio data frame
   
@@ -14,13 +14,13 @@ rus.tickers <- function(x, del, add, info = F){ # Rearrange tickers
     
     x <- x[-grep(del[n], x)] } # Delete tickers
       
-  titles <- c("Tickers", "Number of tickers") # Number of tickers
+  titles <- c("Tickers", "Number of Tickers") # Number of tickers
   
   # Scenario when you want to know new and excessive tickers in the vector #
   
-  if (info){ y <- list(c(x, add), length(c(x, add)), l, length(l))
+  if (!is.null(l)){ y = list(c(x, add), length(c(x, add)), l, length(l))
   
-    titles <- c(titles, "Excess tickers", "Number of Excess Tickers") }
+    titles <- c(titles, "Mistyped Tickers", "Number of Mistyped Tickers") }
   
   # Scenario when you just need to know tickers in new portfolio #
     
@@ -33,5 +33,5 @@ rus.tickers <- function(x, del, add, info = F){ # Rearrange tickers
 rus.tickers(rus.portfolio.df,
             c("RASP", "QIWI", "MGNT", "ABRD", "PIKK", "NVTK", "UPRO",
               "TTLK", "GCHE", "AKRN", "AQUA"),
-            c("BISVP", "RENI", "WTCMP", "MRKV"),
-            T)
+            c("BISVP", "RENI", "WTCMP", "MRKV")
+            )
