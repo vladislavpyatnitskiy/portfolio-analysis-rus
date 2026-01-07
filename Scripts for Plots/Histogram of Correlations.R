@@ -11,6 +11,13 @@ rus.hist.plt.cor <- function(x){ # Histogram with Portfolio Correlation values
     D <- as.data.frame(get_candles(a, "2007-01-01", till = as.Date(Sys.Date()),
                                    interval = 'daily')[,c(3,8)])
     
+    message(
+      sprintf(
+        "%s is downloaded (%s / %s)", 
+        a, which(C == a), length(C)
+      )
+    ) # Download message
+    
     D <- D[!duplicated(D),] # Remove duplicates
     
     p <- cbind(p, xts(D[, 1], order.by = as.Date(D[, 2]))) }
