@@ -4,18 +4,27 @@ rus.heatmap.plt <- function(x, size = .9, main = NULL){
   
   p <- NULL # Create an empty variable and get stock price data
   
-  for (a in colnames(x[,1+3*seq(ncol(x) %/% 3,from=0)])[-(ncol(x)%/%3+1)]){ 
+  C = colnames(x[,1+3*seq(ncol(x) %/% 3,from=0)])[-(ncol(x)%/%3+1)]
+  
+  for (a in C){ 
     
     D <- as.data.frame(get_candles(a, "2007-01-01", till = as.Date(Sys.Date()),
                                    interval = 'daily')[,c(3,8)])
-  
+    
+    message(
+      sprintf(
+        "%s is downloaded (%s / %s)", 
+        a, which(C == a), length(C)
+      )
+    ) # Download message
+    
     D <- D[!duplicated(D),] # Remove duplicates
     
     p <- cbind(p, xts(D[, 1], order.by = as.Date(D[, 2]))) }
   
   p <- p[apply(p, 1, function(x) all(!is.na(x))),] # Eliminate NAs
   
-  colnames(p) <- colnames(x[,1+3*seq(ncol(x) %/% 3,from=0)])[-(ncol(x)%/%3+1)]
+  colnames(p) <- C
   
   m.correlation = as.matrix(diff(log(as.timeSeries(p)))[-1,]) # returns matrix 
   
