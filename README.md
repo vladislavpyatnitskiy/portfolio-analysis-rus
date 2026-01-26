@@ -106,7 +106,9 @@ PIKK     406.50   7.24  1.08 0.60  -2.83      3.01        0.19
 ![](https://github.com/vladislavpyatnitskiy/rus-stock-data-analysis/blob/main/Plots/Portfolio%20Histogram.png?raw=true)
 #### Fig. 19. Histogram of Portfolio Returns
 --------------------------------------------------------------------
-
+![](https://github.com/vladislavpyatnitskiy/portfolio-analysis-rus/blob/main/Plots/Calendar%20Plot.png?raw=true)
+#### Fig. 20. Calendar of Portfolio Returns
+--------------------------------------------------------------------
 ## Data Analysis Capabilities
 ```
    Ticker Start Date   End Date Number
