@@ -9,7 +9,9 @@ rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio
     v <- cbind(v, diff(log(s[apply(s,1,function(row) all(row !=0 )),]))[-1,]) } 
   
   colnames(v) <- colnames(x) # Give column names & generate plot
-  
+
+  par(mar = rep(4, 4)) # Define borders of the plot to fit right y-axis
+                                   
   B <- boxplot.matrix(
     v,
     main = "Fluctuations of Portfolio Securities",
@@ -22,8 +24,6 @@ rus.box.plt <- function(x){ # Function to create Boxplot for Portfolio
   abline(h = 0, lty = 3) # Break Even Return
   
   axis(side = 4, las = 1) # Return values on the right side of the plot
-  
-  par(mar = rep(4, 4)) # Define borders of the plot to fit right y-axis
   
   abline(v = seq(ncol(v)), col = "grey", lty = 3) # Add vertical lines
 }
