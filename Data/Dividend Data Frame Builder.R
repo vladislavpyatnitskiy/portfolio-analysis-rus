@@ -4,7 +4,7 @@ rus.dividend.df.builder <- function(x){ # Portfolio Dividend Data Frame
   
   y <- NULL # Data Frame with Tickers, Dates and Dividend Amount
   
-  p <- seq("2023", from = "2014", by = 1) # Dates
+  p <- seq(format(Sys.Date(), "%Y"), from = "2014", by = 1) # Dates
   
   for (m in 1:length(p)){ # Get data for each year
     
